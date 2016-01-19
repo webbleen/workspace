@@ -1,0 +1,25 @@
+task :default => [:today]
+
+desc "今天的任务"
+task :today do
+  Rake::Task["dan:bitchfish"].invoke
+  Rake::Task["dan:pc"].invoke
+end
+
+namespace :dan do
+  desc "任务1 -- 搭车去车车那里(这据说是个苦差,因为太远了)"
+  task :busboy do
+    puts "发现挫男"
+  end
+  
+  desc "任务2 -- 烤鱼"
+  task :bitchfish do
+    puts "老板,先烤九斤鱼"
+  end
+  
+  desc "任务3 -- 网吧PC"
+  task :pc do
+    puts "我选中路"
+  end
+end
+

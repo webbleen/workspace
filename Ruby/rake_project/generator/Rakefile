@@ -1,0 +1,11 @@
+require 'colorize'
+require 'fileutils'
+
+require_relative 'generator/lib/generator'
+
+task :default do
+  puts "[Parse] Parsing JSON".yellow
+  table = parse_json('property.json')
+  puts "[Parse] Add superclass relation".green
+  add_superklass_relation(table)
+end
