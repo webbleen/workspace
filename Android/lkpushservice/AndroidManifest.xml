@@ -1,0 +1,25 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lk.sdk"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="23" />
+
+    <!-- 访问权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- application 中如果不配置 theme 结果是当退出是退出提示框中的 “是” 字不显示 -->
+    <application  >
+        <activity android:name="com.lk.sdk.MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <receiver android:name="com.lk.sdk.LKNotification" />
+    </application>
+
+</manifest>
