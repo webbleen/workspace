@@ -1,0 +1,13 @@
+{
+  "desc":"代码混淆配置",
+  "confuse_list": [
+    {
+      "file_name": "ShareManager.cs",
+      "class_name": "ShareManager"
+    },
+    {
+      "file_name": "AnalyticsManager.cs",
+      "class_name": "AnalyticsManager"
+    }
+  ]
+}
