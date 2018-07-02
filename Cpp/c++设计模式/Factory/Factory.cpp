@@ -1,6 +1,7 @@
 #include "Factory.h"
 
 #include <iostream>
+#include "Product.h"
 
 using namespace std;
 

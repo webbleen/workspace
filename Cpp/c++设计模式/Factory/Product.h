@@ -10,7 +10,7 @@ public:
     Product();
 };
 
-class ContreteProduct// : public Product
+class ContreteProduct : public Product
 {
 public:
     ~ContreteProduct();

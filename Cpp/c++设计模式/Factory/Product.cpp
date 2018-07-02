@@ -15,7 +15,7 @@ Product::~Product()
 
 ContreteProduct::ContreteProduct()
 {
-    //cout << "ContreteProduct ..." << endl;
+    cout << "ContreteProduct ..." << endl;
 }
 
 ContreteProduct::~ContreteProduct()
