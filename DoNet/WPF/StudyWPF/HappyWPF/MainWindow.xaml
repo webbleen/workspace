@@ -1,0 +1,13 @@
+﻿<Window x:Class="HappyWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:HappyWPF"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <local:Human x:Key="human" Name="Tim" Child="Lettle Tim" />
+    </Window.Resources>
+    <Grid>
+        <!--<Path Data="M 0,0 L 200,100 L100,200 Z" Stroke="Black" Fill="Red"/>-->
+        <Button Content="Show!" Height="30" Width="120" Click="Button_Click" />
+    </Grid>
+</Window>
