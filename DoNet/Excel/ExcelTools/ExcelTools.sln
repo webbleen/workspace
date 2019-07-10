@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateSample", "CreateSample\CreateSample.csproj", "{D49A0EB3-4C06-47E7-B4EE-9DC0ADE0654C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintExcel", "PrintExcel\PrintExcel.csproj", "{6B31F13F-A143-4EBB-91EC-B0D2AB9F8746}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D49A0EB3-4C06-47E7-B4EE-9DC0ADE0654C}.Debug|x86.ActiveCfg = Debug|x86
+		{D49A0EB3-4C06-47E7-B4EE-9DC0ADE0654C}.Debug|x86.Build.0 = Debug|x86
+		{D49A0EB3-4C06-47E7-B4EE-9DC0ADE0654C}.Release|x86.ActiveCfg = Release|x86
+		{D49A0EB3-4C06-47E7-B4EE-9DC0ADE0654C}.Release|x86.Build.0 = Release|x86
+		{6B31F13F-A143-4EBB-91EC-B0D2AB9F8746}.Debug|x86.ActiveCfg = Debug|x86
+		{6B31F13F-A143-4EBB-91EC-B0D2AB9F8746}.Debug|x86.Build.0 = Debug|x86
+		{6B31F13F-A143-4EBB-91EC-B0D2AB9F8746}.Release|x86.ActiveCfg = Release|x86
+		{6B31F13F-A143-4EBB-91EC-B0D2AB9F8746}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
