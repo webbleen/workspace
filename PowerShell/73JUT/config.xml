@@ -1,4 +1,6 @@
 <ut>
   <jobName>15061</jobName>
-  <shootNoName>shootNoPath.xlsx</shootNoName>
+  <shootNumber>shootNumber.xlsx</shootNumber>
+  <testData>testData.xlsx</testData>
+  <expectData>expectData.xlsx</expectData>
 </ut>

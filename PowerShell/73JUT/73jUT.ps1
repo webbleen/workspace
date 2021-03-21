@@ -3,6 +3,9 @@ filename:73JUT
 author:webbleen
 #>
 
+[CmdletBinding()]
+param()
+
 class CCaseNo {
     [Int] $LargeNo
     [Int] $MiddleNo
@@ -63,26 +66,42 @@ class CCaseNo {
 # $73J_CCaseNoB.Check()
 # $73J_CCaseNoB.ToString()
 
+class CDataContainer {
+    [String] $_name
+    [String] $_type
+    [System.Data.DataSet] $_dataSet
+
+    CDataContainer() {
+        $this._dataSet = [System.Data.DataSet]::New()
+    }
+}
+
 class C73JUT {
-    $excel
-    [XML]$config
+    $_excel
+    [XML]$_config
+
+    [System.Collections.Generic.List[CDataContainer]] $_testData
+    [System.Collections.Generic.List[CDataContainer]] $_expectData
+    [System.Collections.Generic.List[CDataContainer]] $_rejectData
 
     C73JUT() {
-        $this.config = Get-Content (Get-ChildItem "config.xml").FullName
+        $this._config = Get-Content (Get-ChildItem "config.xml").FullName
 
-        $this.excel = New-Object -ComObject Excel.Application    # Excel起動
-        $this.excel.Visible = $false                             # 表示する・しない
+        $this._excel = New-Object -ComObject Excel.Application    # Excel起動
+        $this._excel.Visible = $false                             # 表示する・しない
+
+        $this._testData = [System.Collections.Generic.List[CDataContainer]]::New()
+        $this._expectData = [System.Collections.Generic.List[CDataContainer]]::New()
+        $this._rejectData = [System.Collections.Generic.List[CDataContainer]]::New()
     }
 
-    Hello() {
+    [void] Hello() {
         Write-Host "Hello C73JUT"
-        Write-Host "JobName:$($this.config.ut.jobName)"
+        Write-Verbose "JobName:$($this._config.ut.jobName)"
     }
 
-    [hashtable]ReadShootNo() {
-        Trap {"Trap Error: $($_.Exception.Message)"; Continue}
-
-        $book = $this.excel.Workbooks.Open([string](Resolve-Path (Get-ChildItem $this.config.ut.shootNoName)))                      # ブックを開く
+    [hashtable] ReadShootNumber() {
+        $book = $this._excel.Workbooks.Open([string](Resolve-Path (Get-ChildItem $this._config.ut.shootNumber)))                      # ブックを開く
     
         $sheet = $book.Sheets(1)
         $shootTable = @{}
@@ -100,38 +119,109 @@ class C73JUT {
         [System.Runtime.Interopservices.Marshal]::ReleaseComObject($book) | Out-Null
         $book = $null
         Remove-Variable book -ErrorAction SilentlyContinue
-
+        
         return $shootTable
     }
 
-    Clear() {
+    [Void] ReadTestData() {
+        Write-Host "ReadTestData"
+        $book = $this._excel.Workbooks.Open([string](Resolve-Path (Get-ChildItem $this._config.ut.testData)))                      # ブックを開く
+        
+        $book.Worksheets | ForEach-Object {
+            if ($_.Name -contains "テストデータ") {
+                
+            }
+            Write-Host $_.Name
+            $startRow = 12
+            $startColumn = 4
+
+            $tableName = $_.Range("C$($startRow-4)").Text
+            Write-Host $tableName
+
+            # 获取字段名
+            $columnNameCell = $_.Cells.Item($startRow-2, $startColumn)
+            $index = 0
+            $columnNameStr  = ""
+            while ($columnNameCell.Text -ne "") {
+                $columnNameStr = $columnNameStr + $columnNameCell.Text
+                $index++
+                $columnNameCell = $_.Cells.Item($startRow-2, $startColumn+$index)
+            }
+            Write-Host "columnNameStr:$($columnNameStr)"
+
+            # 获取CaseNo
+            $caseNumberCell = $_.Range("B$($startRow)")
+            $index = 0
+            while ($caseNumberCell.Text -ne "") {
+                Write-Host $caseNumberCell.Text
+                Write-Host "{$($caseNumberCell.MergeArea.Row),$($caseNumberCell.MergeArea.Column),$($caseNumberCell.MergeArea.Rows.Count),$($caseNumberCell.MergeArea.Columns.Count)}"
+
+                $index = $index + $caseNumberCell.MergeArea.Rows.Count
+                $caseNumberCell = $_.Range("B$($startRow+$index)")
+            }
+
+        }
+        
+        $book.Close()
+    
+        [System.Runtime.Interopservices.Marshal]::ReleaseComObject($book) | Out-Null
+        $book = $null
+        Remove-Variable book -ErrorAction SilentlyContinue
+    }
+
+    [void] Clear() {
         [System.GC]::Collect()
         [System.GC]::WaitForPendingFinalizers()
         [System.GC]::Collect()
 
-        [System.Runtime.Interopservices.Marshal]::ReleaseComObject($this.excel) | Out-Null
-        $this.excel = $null
+        [System.Runtime.Interopservices.Marshal]::ReleaseComObject($this._excel) | Out-Null
+        $this._excel = $null
         Remove-Variable excel -ErrorAction SilentlyContinue
 
-        $this.config = $null
+        $this._config = $null
         Remove-Variable config -ErrorAction SilentlyContinue
 
         [System.GC]::Collect()
         [System.GC]::WaitForPendingFinalizers()
         [System.GC]::Collect()
     }
+
+    static [C73JUT] Create() {
+        $object = [C73JUT]::New()
+
+        Write-Host "Create"
+
+        return $object
+    }
+
+    static [C73JUT] PowerShell() {
+        $object = [C73JUT]::New()
+
+        Write-Host "PowerShell"
+
+        return $object
+    }
 }
 
 
+Clear-Host
+
 $utObj = New-Object C73JUT
+<#
+$objects = "Create", "PowerShell"
+$currentObject = 1
+$utObj = [C73JUT]::($objects[$currentObject]).Invoke()
+#>
 
 try {
     $utObj.Hello()
-    $shootTable = $utObj.ReadShootNo()
-    $shootTable | ConvertTo-Json
+    $shootTable = $utObj.ReadShootNumber()
+    # $shootTable | ConvertTo-Json
+    $utObj.ReadTestData()
 }
-catch {
-    "Error in a Try block." 
+catch [Exception] {
+    Write-Host $_.Exception.Message
+    exit 1
 }
 finally {
     $utObj.Clear()
