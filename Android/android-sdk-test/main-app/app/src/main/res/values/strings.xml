@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Main App</string>
+    <string name="main_title">Main App</string>
+    <string name="launch_webview">启动WebView</string>
+    <string name="custom_logo">自定义Logo</string>
+    <string name="webview_title">WebView页面</string>
+</resources>
