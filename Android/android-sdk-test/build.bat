@@ -100,3 +100,4 @@ echo 下一步：
 echo 1. 将APK安装到Android设备上
 echo 2. 或者在Android Studio中打开项目进行调试
 pause
+

@@ -65,10 +65,10 @@ cd webview-library
 ## 构建和运行
 
 ### 环境要求
-- Android Studio Hedgehog | 2023.1.1 或更高版本
-- Android SDK 34
-- Kotlin 1.9.0
-- Gradle 8.0
+- Android Studio Flamingo | 2022.2.1 或更高版本
+- Android SDK 33
+- Kotlin 1.8.20
+- Gradle 7.6
 
 ### 构建步骤
 
@@ -104,10 +104,17 @@ cd main-app
 
 ## 注意事项
 
-1. 确保网络权限已正确配置
-2. WebView需要网络连接才能正常加载网页
-3. 第一个项目必须先生成AAR文件，第二个项目才能正常构建
-4. 建议使用Android Studio打开项目以获得最佳开发体验
+1. **Java版本要求**: 项目需要Java 11或更高版本才能构建
+2. 确保网络权限已正确配置
+3. WebView需要网络连接才能正常加载网页
+4. 第一个项目必须先生成AAR文件，第二个项目才能正常构建
+5. 建议使用Android Studio打开项目以获得最佳开发体验
+
+## 重要提示
+
+由于当前系统使用Java 8，无法直接构建项目。请参考 `BUILD_INSTRUCTIONS.md` 文件了解详细的构建说明。
+
+**推荐解决方案**: 使用Android Studio打开项目，它会自动处理Java版本和依赖问题。
 
 ## 技术栈
 
@@ -115,4 +122,5 @@ cd main-app
 - **UI框架**: Android原生 + Material Design
 - **构建工具**: Gradle + Kotlin DSL
 - **最低SDK**: API 21 (Android 5.0)
-- **目标SDK**: API 34 (Android 14)
+- **目标SDK**: API 33 (Android 13)
+

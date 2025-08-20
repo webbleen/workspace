@@ -32,3 +32,4 @@ class SplashActivity : AppCompatActivity() {
         binding.ivLogo.setImageResource(logoResId)
     }
 }
+
